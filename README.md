@@ -10,4 +10,4 @@ The role installs the dependencies from the Arch repositories and the aur, creat
 
 ## dependencies
 
-This role depends my a small aur helper role.
+This role depends my a small [aur](https://github.com/knowhy/ansible-role-aur) helper role.
