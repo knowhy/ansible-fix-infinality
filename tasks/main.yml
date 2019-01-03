@@ -1,0 +1,65 @@
+---
+
+- name: install fonts
+  pacman:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - noto-fonts
+    - ttf-dejavu
+    - ttf-liberation
+
+- name: install fonts from aur
+  include_role:
+    name: aur
+  vars:
+    pkg_name: "{{ item }}"
+  loop:
+    - ttf-oswald
+    - ttf-quintessential
+    - ttf-impallari-cantora
+    - ttf-gelasio-ib
+    - ttf-merriweather
+    - ttf-merriweather-sans
+    - ttf-signi
+    - ttf-courier-prime
+    - ttf-heuristica
+    - ttf-symbola
+    - ttf-signika
+    - fonts-meta-base
+    - fonts-meta-extended-lt
+
+- name: configure fonts.local conf
+  copy:
+    src: local.conf
+    dest: /etc/fonts/local.conf
+
+- name: link to new lcdfilter fonts
+  file:
+    state: link
+    src: /etc/fonts/conf.avail/11-lcdfilter-default.conf
+    dest: /etc/fonts/conf.d/11-lcdfilter-default.conf
+
+- name: link to new sub-pixel-rgb fonts
+  file:
+    state: link
+    src: /etc/fonts/conf.avail/10-sub-pixel-rgb.conf
+    dest: /etc/fonts/conf.d/10-sub-pixel-rgb.conf
+
+- name: link to new sub-pixel-rgb fonts
+  file:
+    state: link
+    src: /etc/fonts/conf.avail/10-hinting-slight.conf
+    dest: /etc/fonts/conf.d/10-hinting-slight.conf
+
+- stat:
+    path: /etc/profile.d/jre.sh
+  register: jre_sh
+    
+- name: activate new font config for Java applications
+  lineinfile:
+    path: /etc/profile.d/jre.sh
+    line: "export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'"
+    state: present
+    insertafter: EOF
+  when: jre_sh.stat.exists
