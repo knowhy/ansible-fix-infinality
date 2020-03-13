@@ -26,8 +26,8 @@
     - ttf-heuristica
     # - ttf-symbola
     - ttf-signika
-    - fonts-meta-base
-    - fonts-meta-extended-lt
+    # - fonts-meta-base
+    # - fonts-meta-extended-lt
 
 - name: configure fonts.local conf
   copy:
