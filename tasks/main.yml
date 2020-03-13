@@ -24,7 +24,7 @@
     - ttf-signika
     - ttf-courier-prime
     - ttf-heuristica
-    - ttf-symbola
+    # - ttf-symbola
     - ttf-signika
     - fonts-meta-base
     - fonts-meta-extended-lt
